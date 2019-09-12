@@ -2,14 +2,14 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String, ForeignKey, Table
 from sqlalchemy.orm import sessionmaker, relationship, session
 from sqlalchemy import create_engine
+
 Base = declarative_base()
-DB_URI ='postgresql+psycopg2://postgres:postgres@localhost/SampleDB'
+DB_URI = 'postgresql+psycopg2://postgres:postgres@localhost/SampleDB'
 
 association_table = Table("users_to_cars", Base.metadata,
 
                           Column("user_id", Integer, ForeignKey("vehicle_users.id")),
                           Column("car_id", Integer, ForeignKey("vehicle_cars.id")))
-
 
 
 class User(Base):
@@ -28,12 +28,3 @@ class Car(Base):
 
 db_engine = create_engine('postgresql+psycopg2://postgres:postgres@localhost/SampleDB')
 Base.metadata.create_all(db_engine)
-
-# db_engine = create_engine(DB_URI)
-# Session = sessionmaker(bind=db_engine)
-# session = Session()
-# u=User()
-# c=Car()
-# u.cars.append(c)
-# session.add(u)
-# session.commit()
